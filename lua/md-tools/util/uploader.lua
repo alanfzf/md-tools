@@ -39,7 +39,7 @@ M.upload_image = function()
 
   if string.sub(upload_cmd, 1, 1) == "&" then
     -- handle fucking autistic windows
-    upload_cmd = string.format("pwsh -Command \"& { %s }\"", upload_cmd)
+    upload_cmd = string.format([[pwsh -Command "& { %s }"]], upload_cmd)
   end
 
   -- Start uploading
@@ -69,10 +69,9 @@ M.upload_image = function()
     end,
   })
 
+  local upload_ok = message == nil
 
-  local failed = message == nil
-
-  return failed, message
+  return upload_ok, message
 end
 
 return M
