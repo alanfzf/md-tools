@@ -3,8 +3,8 @@ local fn = vim.fn
 local M = {}
 
 local command = {
-  windows = [[Add-Type -AssemblyName System.Windows.Forms; $image = [System.Windows.Forms.Clipboard]::GetImage(); if ($image -ne $null) { $ms = New-Object System.IO.MemoryStream; $image.Save($ms, [System.Drawing.Imaging.ImageFormat]::Png); $imageBytes = $ms.ToArray(); $ms.Close(); return $imageBytes; }]],
-  linux_xorg = [[]]
+  windows = [[& { Add-Type -AssemblyName System.Windows.Forms; $image = [System.Windows.Forms.Clipboard]::GetImage(); if ($image -ne $null) { $ms = New-Object System.IO.MemoryStream; $image.Save($ms, [System.Drawing.Imaging.ImageFormat]::Png); $imageBytes = $ms.ToArray(); $ms.Close(); return $imageBytes; } }]],
+  linux_xorg = [[xclip -selection clipboard -t image/png -o]]
 }
 
 local get_unix_display = function()
@@ -35,12 +35,10 @@ local get_current_os = function ()
   return nil
 end
 
-
 -- UTILITY FUNCTIONS
 M.get_clipboard_cmd = function ()
   local os = get_current_os()
-  local cmd = command[os]
-  return cmd
+  return command[os]
 end
 
 M.is_read_only = function ()
