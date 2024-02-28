@@ -14,3 +14,7 @@ This plugin aims to improve the markdown workflow in neovim by adding more funct
 - [ ] Feature
 - [ ] Feature
 - [ ] Feature
+
+## Needs
+- JQ
+- Plenary
